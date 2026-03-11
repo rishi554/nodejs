@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Home Page</title>
+    <%- include("./partials/head"); %>
+  </head>
+  <body>
+    <%- include("./partials/nav"); %>
+    <div class="container mt-3">
+      <h2>Blogs</h2>
+      <hr class="border border-danger border-2 opacity-50" />
+      <div class="row">
+      <% locals.blogs.forEach(blog => { %>
+          <div class="col-3">
+            <div class="card">
+              <img src="/uploads/<%= blog.createdBy %>/<%= blog.coverImage %>" height="200" class="img" alt="..." />
+                <div class="card-body">
+                  <h6 class="card-title"><%= blog.title %> </h6>
+                  <p class="card-text text-truncate">
+                    <%= blog.body %> 
+                  </p>
+                  <a href="/blog/<%= blog._id %> " class="btn btn-primary">View More</a>
+                </div>
+            </div>
+          </div>
+      <% }) %>
+      </div>
+    </div>
+    <%- include("./partials/scripts"); %>
+  </body>
+</html>

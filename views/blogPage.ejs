@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Home Page</title>
+    <%- include("./partials/head"); %>
+  </head>
+  <body>
+    <%- include("./partials/nav"); %>
+    <div class="container mt-3">
+      <h3><%= blog.title %></h3>
+      <hr class="border border-black border-1 opacity-100" />
+      <div class="row">
+        <div class="col-9">
+          <div class="card mb-3">
+            <img
+              src="/uploads/<%= blog.createdBy._id %>/<%= blog.coverImage %>"
+              class="card-img-top"
+              alt="..."
+              height="400"
+            />
+            <div class="card-body">
+              <p class="card-text"><%= blog.body %></p>
+              <p class="card-text">
+                <small class="text-body-secondary"
+                  >Last updated 3 mins ago</small
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <h5>Recent Blogs</h5>
+          <hr class="border border-danger border-2 opacity-50" />
+        </div>
+        <div class="col-9">
+          <div class="card p-2 mb-1">
+            <img
+              src="<%= blog.createdBy.profileImageUrl %> "
+              class="img-thumbnail"
+              alt="..."
+              width="10%"
+            />
+            <p><b>Posted By:</b> <%= blog.createdBy.fullName %></p>
+            <p><b>Posted On:</b> <%= blog.createdBy.createdAt %></p>
+          </div>
+          <% if (locals.comments.length > 0) { %>
+            <h4>Comments:</h4>
+            <% locals.comments.forEach(comment => { %>
+              <div class="card mb-4">
+                <div class="card-body">
+                  <p><%= comment.content%></p>
+
+                  <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                      <img
+                        src="<%= comment.userId.profileImageUrl%>"
+                        alt="avatar"
+                        width="25"
+                        height="25"
+                      />
+                      <p class="small mb-0 ms-2"><%= comment.userId.fullName%></p>
+                    </div>
+                    <div class="d-flex flex-row align-items-center">
+                      <p class="small text-muted mb-0">Upvote?</p>
+                      <i
+                        class="far fa-thumbs-up mx-2 fa-xs text-body"
+                        style="margin-top: -0.16rem"
+                      ></i>
+                      <p class="small text-muted mb-0">3</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          <% } %>
+        </div>
+        <form
+          action="/comment"
+          method="post"
+          class="row row-cols-lg-auto g-3 align-items-center mb-3 mt-3"
+        >
+          <div class="col-12">
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+              </div>
+              <input type="hidden" name="blogId" value="<%= blog._id %>">
+              <input
+                type="text"
+                class="form-control"
+                id="content"
+                placeholder="Add your comment"
+                name="content"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary">Comment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <%- include("./partials/scripts"); %>
+  </body>
+</html>

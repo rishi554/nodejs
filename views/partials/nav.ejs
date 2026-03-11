@@ -1,0 +1,67 @@
+<nav
+  class="navbar navbar-expand-lg bg-body-tertiary navbar-dark"
+  data-bs-theme="dark"
+>
+  <div class="container">
+    <a class="navbar-brand border-danger" href="/"><b>B</b>logify</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <% if (locals.user) { %>
+            <li class="nav-item">
+                <a class="nav-link" href="/blog/add-blog">Add Blog</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Rushikesh Borate
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/user/signout">Logout</a></li>
+                  <li><a class="dropdown-item" href="/user/settings">Profile Settings</a></li>
+                </ul>
+              </li>
+        <% } else {%>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/signup">Sign Up</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/signin">Sign In</a>
+            </li>
+        <% } %>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<% if (locals.error){ %>
+    <div class="container mt-4">
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <i class="fa fa-warning" aria-hidden="true"></i>
+        <%= locals.error %> 
+    </div>
+    </div>
+<% } %>
+<% if (locals.success){ %>
+  <div class="container mt-4">
+  <div class="alert alert-success d-flex align-items-center" role="alert">
+      <i class="fa fa-success" aria-hidden="true"></i>
+      <%= locals.success %> 
+  </div>
+  </div>
+<% } %>
